@@ -1,0 +1,18 @@
+# Dependencies
+frontend/node_modules/
+
+# Build output
+frontend/dist/
+backend/kyverno-dashboard
+
+# OS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# Environment
+.env
+.env.local
+backend/bin/

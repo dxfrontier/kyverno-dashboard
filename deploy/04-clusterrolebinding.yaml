@@ -1,0 +1,15 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kyverno-dashboard-reader-binding
+  labels:
+    app.kubernetes.io/name: kyverno-dashboard
+    app.kubernetes.io/component: clusterrolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kyverno-dashboard-reader
+subjects:
+  - kind: ServiceAccount
+    name: kyverno-dashboard
+    namespace: kyverno-dashboard
