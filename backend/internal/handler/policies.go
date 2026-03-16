@@ -65,17 +65,20 @@ func PoliciesHandler(store *cache.Store) http.HandlerFunc {
 }
 
 func handleGetPolicy(w http.ResponseWriter, store *cache.Store, name string) {
-	// Search clusterpolicies GVR for the named policy
+	// Search all policy GVRs for the named policy
+	policyResources := []string{"validatingpolicies", "generatingpolicies", "mutatingpolicies", "clusterpolicies"}
 	gvrMap := make(map[string]schema.GroupVersionResource)
 	for _, gvr := range cache.KyvernoGVRs {
 		gvrMap[gvr.Resource] = gvr
 	}
 
-	if gvr, ok := gvrMap["clusterpolicies"]; ok {
-		obj, err := store.Get(gvr, "", name)
-		if err == nil && obj != nil {
-			writeJSON(w, http.StatusOK, obj)
-			return
+	for _, resource := range policyResources {
+		if gvr, ok := gvrMap[resource]; ok {
+			obj, err := store.Get(gvr, "", name)
+			if err == nil && obj != nil {
+				writeJSON(w, http.StatusOK, obj)
+				return
+			}
 		}
 	}
 	writeError(w, http.StatusNotFound, "policy not found")

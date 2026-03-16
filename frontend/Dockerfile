@@ -27,9 +27,5 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 # Expose port 3000
 EXPOSE 3000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:3000/health || exit 1
-
-# Run nginx
+# Run nginx (health checks handled by Kubernetes liveness/readiness probes)
 CMD ["nginx", "-g", "daemon off;"]
