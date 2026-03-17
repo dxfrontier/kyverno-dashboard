@@ -13,8 +13,15 @@ interface KyvernoPolicyTableProps {
 const KyvernoPolicyTable: React.FC<KyvernoPolicyTableProps> = ({ darkMode, policies, reports, onPolicyClick }) => {
   const { t } = useT();
 
-  // Flatten all report results for matching
-  const allResults = reports.flatMap((r) => r.results || []);
+  // Flatten all report results for matching.
+  // wgpolicyk8s.io/v1alpha2 stores the resource in report.scope, not per-result.
+  // Attach scope as resources so downstream components can display the resource name.
+  const allResults = reports.flatMap((r) =>
+    (r.results || []).map((result) => ({
+      ...result,
+      resources: result.resources?.length ? result.resources : r.scope ? [r.scope] : [],
+    }))
+  );
 
   return (
     <table className="w-full text-left text-xs">
