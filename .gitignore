@@ -1,5 +1,5 @@
 # Dependencies
-frontend/node_modules/
+node_modules/
 
 # Build output
 frontend/dist/
@@ -10,7 +10,6 @@ backend/kyverno-dashboard
 
 # IDE
 .idea/
-.vscode/
 
 # Environment
 .env

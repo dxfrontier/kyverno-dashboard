@@ -1,12 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useT } from '../hooks/useT';
-import {
-  ChainCategory,
-  KyvernoPolicy,
-  listAllPolicyReports,
-  listKyvernoPolicies,
-  PolicyReport,
-} from '../services/api';
+import { ChainCategory, KyvernoPolicy, listAllPolicyReports, listKyvernoPolicies, PolicyReport } from '../services/api';
 import KyvernoChainGroup from './KyvernoChainGroup';
 import KyvernoSummaryBar from './KyvernoSummaryBar';
 import KyvernoYamlDrawer from './KyvernoYamlDrawer';
@@ -19,7 +13,10 @@ const CHAIN_LABEL = 'model.dxfrontier.com/chain';
 
 function getChainCategory(policy: KyvernoPolicy): ChainCategory {
   const chain = policy.metadata.labels?.[CHAIN_LABEL];
-  if (chain && ['chain-validation', 'domain-to-provisioning', 'status-backflow', 'ui-companion', 'domain-ref-sync'].includes(chain)) {
+  if (
+    chain &&
+    ['chain-validation', 'domain-to-provisioning', 'status-backflow', 'ui-companion', 'domain-ref-sync'].includes(chain)
+  ) {
     return chain as ChainCategory;
   }
   return 'unknown';
@@ -58,6 +55,8 @@ const KyvernoPoliciesTab: React.FC<KyvernoPoliciesTabProps> = ({ darkMode }) => 
 
   useEffect(() => {
     fetchData();
+    const interval = setInterval(fetchData, 30_000);
+    return () => clearInterval(interval);
   }, [fetchData]);
 
   const groupedPolicies = useMemo(() => {

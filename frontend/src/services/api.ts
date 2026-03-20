@@ -155,7 +155,10 @@ function getMockData(url: string): unknown {
                 resourceRules: [{ apiGroups: ['domain.dxfrontier.com'], resources: ['runtimestack'] }],
               },
               variables: [
-                { name: 'target', expression: '{"kind": dyn("XSubaccount"), "apiVersion": dyn("btp.dxstarter.io/v1alpha1")}' },
+                {
+                  name: 'target',
+                  expression: '{"kind": dyn("XSubaccount"), "apiVersion": dyn("btp.dxstarter.io/v1alpha1")}',
+                },
               ],
             },
           },
@@ -225,7 +228,12 @@ function getMockData(url: string): unknown {
             summary: { pass: 12, fail: 2, warn: 1, skip: 0, error: 0 },
             results: [
               { policy: 'check-labels', result: 'pass', severity: 'medium', message: 'All labels present' },
-              { policy: 'require-namespace', result: 'fail', severity: 'high', message: 'Missing required namespace label' },
+              {
+                policy: 'require-namespace',
+                result: 'fail',
+                severity: 'high',
+                message: 'Missing required namespace label',
+              },
             ],
           },
         ],
@@ -236,9 +244,7 @@ function getMockData(url: string): unknown {
           {
             metadata: { name: 'ccpolr' },
             summary: { pass: 45, fail: 3, warn: 2, skip: 1, error: 0 },
-            results: [
-              { policy: 'require-labels', result: 'pass', severity: 'high', message: 'Labels validated' },
-            ],
+            results: [{ policy: 'require-labels', result: 'pass', severity: 'high', message: 'Labels validated' }],
           },
         ],
         total: 1,

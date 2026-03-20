@@ -20,14 +20,16 @@ const KyvernoPolicyTable: React.FC<KyvernoPolicyTableProps> = ({ darkMode, polic
     (r.results || []).map((result) => ({
       ...result,
       resources: result.resources?.length ? result.resources : r.scope ? [r.scope] : [],
-    }))
+    })),
   );
 
   return (
     <table className="w-full text-left text-xs">
       <thead className={darkMode ? 'bg-[#111] text-gray-500' : 'bg-gray-50 text-slate-400'}>
         <tr>
-          <th className="px-4 py-2 font-bold uppercase tracking-widest text-[10px]">{t('admin.kyverno_policy_name')}</th>
+          <th className="px-4 py-2 font-bold uppercase tracking-widest text-[10px]">
+            {t('admin.kyverno_policy_name')}
+          </th>
           <th className="px-4 py-2 font-bold uppercase tracking-widest text-[10px]">{t('admin.kyverno_type')}</th>
           <th className="px-4 py-2 font-bold uppercase tracking-widest text-[10px]">{t('admin.kyverno_severity')}</th>
           <th className="px-4 py-2 font-bold uppercase tracking-widest text-[10px]">{t('admin.kyverno_status')}</th>

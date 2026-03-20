@@ -34,21 +34,23 @@ const KyvernoReportDetails: React.FC<KyvernoReportDetailsProps> = ({ darkMode, r
             <th className="px-4 py-2 font-bold uppercase tracking-widest text-[10px]">{t('admin.kyverno_resource')}</th>
             <th className="px-4 py-2 font-bold uppercase tracking-widest text-[10px]">{t('admin.kyverno_result')}</th>
             <th className="px-4 py-2 font-bold uppercase tracking-widest text-[10px]">{t('admin.kyverno_message')}</th>
-            <th className="px-4 py-2 font-bold uppercase tracking-widest text-[10px]">{t('admin.kyverno_timestamp')}</th>
+            <th className="px-4 py-2 font-bold uppercase tracking-widest text-[10px]">
+              {t('admin.kyverno_timestamp')}
+            </th>
           </tr>
         </thead>
         <tbody>
           {results.map((result, idx) => {
             const ri = resultIcon[result.result] || { icon: '?', color: 'text-gray-400' };
             const resourceLabel = result.resources?.map((r) => `${r.kind}/${r.name}`).join(', ') || '-';
-            const ts = result.timestamp?.seconds
-              ? new Date(result.timestamp.seconds * 1000).toLocaleString()
-              : '-';
+            const ts = result.timestamp?.seconds ? new Date(result.timestamp.seconds * 1000).toLocaleString() : '-';
 
             return (
               <tr
                 key={idx}
-                className={darkMode ? 'border-t border-[#1a1a1a] text-gray-300' : 'border-t border-gray-50 text-slate-700'}
+                className={
+                  darkMode ? 'border-t border-[#1a1a1a] text-gray-300' : 'border-t border-gray-50 text-slate-700'
+                }
               >
                 <td className="px-4 py-2 font-mono text-[11px]">{resourceLabel}</td>
                 <td className="px-4 py-2">

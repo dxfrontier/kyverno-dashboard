@@ -94,7 +94,7 @@ const GraphInner: React.FC<KyvernoDependencyGraphProps> = ({ policies, darkMode,
       minZoom={0.1}
       maxZoom={2}
     >
-      <Controls className={darkMode ? '!bg-[#1a1a1a] !border-[#333] !text-gray-300' : ''} />
+      <Controls showInteractive={false} className={darkMode ? '!bg-[#1a1a1a] !border-[#333] !text-gray-300' : ''} />
       <Background variant={BackgroundVariant.Dots} gap={20} size={1} color={darkMode ? '#1a1a1a' : '#e2e8f0'} />
     </ReactFlow>
   );

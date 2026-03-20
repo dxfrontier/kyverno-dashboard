@@ -11,7 +11,7 @@ interface KyvernoPolicyRowProps {
 
 const severityColor: Record<string, string> = {
   critical: 'bg-red-500/20 text-red-400',
-  high: 'bg-red-400/20 text-red-300',
+  high: 'bg-orange-500/20 text-orange-400',
   medium: 'bg-yellow-500/20 text-yellow-400',
   low: 'bg-blue-400/20 text-blue-300',
   info: 'bg-gray-400/20 text-gray-400',
@@ -25,9 +25,7 @@ const KyvernoPolicyRow: React.FC<KyvernoPolicyRowProps> = ({ darkMode, policy, r
 
   // Extract severity from the first report result or policy annotations
   const severity =
-    reportResults[0]?.severity ||
-    (policy.metadata.annotations?.['policies.kyverno.io/severity'] as string) ||
-    'info';
+    reportResults[0]?.severity || (policy.metadata.annotations?.['policies.kyverno.io/severity'] as string) || 'info';
   const sevClass = severityColor[severity] || severityColor.info;
 
   return (
@@ -65,7 +63,9 @@ const KyvernoPolicyRow: React.FC<KyvernoPolicyRowProps> = ({ darkMode, policy, r
           </span>
         </td>
         <td className="px-4 py-3">
-          <span className={`inline-flex items-center px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest rounded-full ${sevClass}`}>
+          <span
+            className={`inline-flex items-center px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest rounded-full ${sevClass}`}
+          >
             {severity}
           </span>
         </td>
@@ -81,11 +81,17 @@ const KyvernoPolicyRow: React.FC<KyvernoPolicyRowProps> = ({ darkMode, policy, r
         <td className="px-4 py-3">
           <div className="flex flex-wrap gap-1">
             {Object.entries(policy.metadata.labels ?? {}).map(([key, value]) => (
-              <span key={key} className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono
-                ${key.includes('dxfrontier.com')
-                  ? 'bg-[#42C1A6]/10 text-[#42C1A6]'
-                  : darkMode ? 'bg-[#1a1a1a] text-gray-400' : 'bg-gray-100 text-slate-500'
-                }`}>
+              <span
+                key={key}
+                className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono
+                ${
+                  key.includes('dxfrontier.com')
+                    ? 'bg-[#42C1A6]/10 text-[#42C1A6]'
+                    : darkMode
+                      ? 'bg-[#1a1a1a] text-gray-400'
+                      : 'bg-gray-100 text-slate-500'
+                }`}
+              >
                 {key}=<span className={darkMode ? 'text-gray-300' : 'text-slate-700'}>{value}</span>
               </span>
             ))}

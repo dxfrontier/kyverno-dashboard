@@ -21,19 +21,21 @@ const KyvernoSummaryBar: React.FC<KyvernoSummaryBarProps> = ({ darkMode, summary
 
   return (
     <div
-      className={`rounded-xl border p-4 ${
-        darkMode ? 'border-[#1f1f1f] bg-[#0b0b0b]' : 'border-gray-100 bg-gray-50'
-      }`}
+      className={`rounded-xl border p-4 ${darkMode ? 'border-[#1f1f1f] bg-[#0b0b0b]' : 'border-gray-100 bg-gray-50'}`}
     >
       <div className="flex flex-wrap items-center gap-6">
         <div>
-          <p className={`text-[10px] font-bold uppercase tracking-widest ${darkMode ? 'text-gray-500' : 'text-slate-400'}`}>
+          <p
+            className={`text-[10px] font-bold uppercase tracking-widest ${darkMode ? 'text-gray-500' : 'text-slate-400'}`}
+          >
             {t('admin.kyverno_resources_checked')}
           </p>
           <p className="text-lg font-black">{resourceCount}</p>
         </div>
         <div>
-          <p className={`text-[10px] font-bold uppercase tracking-widest ${darkMode ? 'text-gray-500' : 'text-slate-400'}`}>
+          <p
+            className={`text-[10px] font-bold uppercase tracking-widest ${darkMode ? 'text-gray-500' : 'text-slate-400'}`}
+          >
             {t('admin.kyverno_total_checks')}
           </p>
           <p className="text-lg font-black">{totalChecks}</p>
@@ -43,7 +45,9 @@ const KyvernoSummaryBar: React.FC<KyvernoSummaryBarProps> = ({ darkMode, summary
           {metrics.map((m) => (
             <div key={m.key} className="flex items-center gap-1.5">
               <span className={`text-sm ${m.color}`}>{m.icon}</span>
-              <span className={`text-[10px] font-bold uppercase tracking-widest ${darkMode ? 'text-gray-400' : 'text-slate-500'}`}>
+              <span
+                className={`text-[10px] font-bold uppercase tracking-widest ${darkMode ? 'text-gray-400' : 'text-slate-500'}`}
+              >
                 {m.label}:
               </span>
               <span className={`text-sm font-black ${m.color}`}>{m.value}</span>

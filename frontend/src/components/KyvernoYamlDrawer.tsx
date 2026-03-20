@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useT } from '../hooks/useT';
 import { KyvernoPolicy } from '../services/api';
 
@@ -71,6 +71,15 @@ const KyvernoYamlDrawer: React.FC<KyvernoYamlDrawerProps> = ({ darkMode, policy,
     URL.revokeObjectURL(url);
   }, [yamlContent, policy]);
 
+  useEffect(() => {
+    if (!policy) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [policy, onClose]);
+
   if (!policy) return null;
 
   return (
@@ -85,9 +94,13 @@ const KyvernoYamlDrawer: React.FC<KyvernoYamlDrawerProps> = ({ darkMode, policy,
         }`}
       >
         {/* Header */}
-        <div className={`px-6 py-4 border-b flex items-center justify-between ${darkMode ? 'border-[#1a1a1a]' : 'border-gray-100'}`}>
+        <div
+          className={`px-6 py-4 border-b flex items-center justify-between ${darkMode ? 'border-[#1a1a1a]' : 'border-gray-100'}`}
+        >
           <div>
-            <p className={`text-[10px] font-bold uppercase tracking-widest ${darkMode ? 'text-gray-500' : 'text-slate-400'}`}>
+            <p
+              className={`text-[10px] font-bold uppercase tracking-widest ${darkMode ? 'text-gray-500' : 'text-slate-400'}`}
+            >
               YAML
             </p>
             <p className="text-sm font-black tracking-tight">{policy.metadata.name}</p>
